@@ -1,5 +1,8 @@
 setwd("/Users/martin/Dev/aubio/aubio-r")
 source("aubio.R")
+library(seewave)
+library(tuneR)
+
 
 fileBeatbox <- "data/beatbox.wav";
 fileDoremi <- "data/doremi.wav";
@@ -36,9 +39,9 @@ for(i in aubio.pitch.p){
 
 # ----------------
 ## Seewave : Dominant frequency  
-spectro(waveDoremi, ovlp=75, zp=8, palette=rev.gray.colors.1, scale=FALSE)
+spectro(waveDoremi, ovlp=75, zp=8, palette=rev.gray.colors.1, scale=FALSE, flim=freqRangeKHz)
 par(new=TRUE)
-dfreq(waveDoremi, ovlp=50, threshold=6, type="l", col="red", lwd=2)
+#dfreq(waveDoremi, ovlp=50, threshold=6, type="l", col="red", lwd=2)
 
 ## Seewave : Instantaneous frequency
 ifreq(waveDoremi, threshold=6, col="darkviolet", main="Instantaneous frequency with Hilbert transform")

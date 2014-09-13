@@ -1,4 +1,7 @@
+setwd("/Users/martin/Dev/aubio/aubio-r")
 source("aubio.R")
+library(seewave)
+library(tuneR)
 
 fileBeatbox <- "data/beatbox.wav";
 fileDoremi <- "data/doremi.wav";

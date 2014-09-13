@@ -10,9 +10,6 @@
 # aubioquiet : extract quit and loud regions
 # aubiotrack : extract beats from audio signal
 
-library(seewave)
-library(tuneR)
-
 note.C0 = 16.35
 note.A0 = 27.50
 note.C4 = 261.63
