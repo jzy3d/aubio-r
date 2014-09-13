@@ -42,10 +42,9 @@ note.B8 = 7902
 aubio.pitch.p = c('default', 'schmitt', 'fcomb', 'mcomb', 'specacf', 'yinfft')
 
 aubioPitch <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubiopitch", args, inout(file, out))
+  cmd = paste("aubiopitch", args, inout(file))
   print(cmd)
-  pitch = cmdRun(cmd, out)
+  pitch = cmdRun(cmd, out(file))
   names(pitch)[1] = "time"
   names(pitch)[2] = "frequency"
   return(pitch)  
@@ -70,11 +69,11 @@ aubioPitch <- function(file, args){
 # -h      --help             display this message
 
 aubio.onset.O = c('default', 'energy', 'hfc', 'complex', 'phase', 'specdiff', 'kl', 'mkl', 'specflux')
+
 aubioOnset <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubioonset", args, inout(file, out))
+  cmd = paste("aubioonset", args, inout(file))
   print(cmd)
-  onsets <- cmdRun(cmd, out)
+  onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
 
@@ -82,10 +81,9 @@ aubioOnset <- function(file, args){
 # AUBIO MFCC : Mel Spectrum Coefficients
 
 aubioMfcc <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubiomfcc", args, inout(file, out))
+  cmd = paste("aubiomfcc", args, inout(file))
   print(cmd)
-  onsets <- cmdRun(cmd, out)
+  onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
 
@@ -96,10 +94,9 @@ aubioMfcc <- function(file, args){
 # AUBIO CUT : WAV to midi
 
 aubioCut <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubiocut", args, inout(file, out))
+  cmd = paste("aubiocut", args, inout(file))
   print(cmd)
-  onsets <- cmdRun(cmd, out)
+  onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
 
@@ -107,10 +104,9 @@ aubioCut <- function(file, args){
 # AUBIO NOTES : WAV to midi
 
 aubioNotes <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubionotes", args, inout(file, out))
+  cmd = paste("aubionotes", args, inout(file))
   print(cmd)
-  onsets <- cmdRun(cmd, out)
+  onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
 
@@ -119,26 +115,22 @@ aubioNotes <- function(file, args){
 # AUBIO QUIET : Detects quiet and loud regions 
 
 aubioQuiet <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubioquiet", args, inout(file, out))
+  cmd = paste("aubioquiet", args, inout(file))
   print(cmd)
-  onsets <- cmdRun(cmd, out)
+  onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
 
 
 #------------------------------------------------------------------------------
 # AUBIO TRACK : Beat detection
+
 aubioTrack <- function(file, args){
-  out = paste(file, ".txt", sep='')
-  cmd = paste("aubiotrack", args, inout(file, out))
+  cmd = paste("aubiotrack", args, inout(file))
   print(cmd)
-  onsets <- cmdRun(cmd, out)
+  onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
-
-#------------------------------------------------------------------------------
-
 
 #------------------------------------------------------------------------------
 # FILTER UTILS
@@ -164,6 +156,10 @@ cmdRun <- function(cmd, out){
   return(aubioOut)
 }
 
-inout <- function(file, out){
-  return(paste("-i", file, ">",  out))
+inout <- function(file){
+  return(paste("-i", file, ">",  out(file)))
+}
+
+out <- function(file){
+  return(paste(file, ".txt", sep=''))
 }
