@@ -10,15 +10,18 @@ waveDoremi <- readWave(fileDoremi)
 
 # ----------------------
 # PITCH ON DOREMI
-pitch <- aubioPitch(fileDoremi, paste("-p", aubio.pitch.p[6])) # 4mcomb yinfft
+
+# -p pitch detection algorithm
+# -s silence threshold [default=-70]
+pitch <- aubioPitch(fileDoremi, paste("-p", aubio.pitch.p[6]))#, "-s", -30)) # 4mcomb yinfft
 plot(pitch, type='p')#'p'
 
 # ignore freq out of range
 freqRangeHz = c(note.C0, note.C4)
 freqRangeKHz = freqRangeHz/1000
-pitchFilter = filterFreqRange(pitch, freqRangeHz)
-
 timeRangeS = c(0,1)
+
+pitchFilter = filterFreqRange(pitch, freqRangeHz)
 pitchFilter = filterTimeRange(pitchFilter, timeRangeS)
 plot(pitchFilter, type='l')#'p'
 
