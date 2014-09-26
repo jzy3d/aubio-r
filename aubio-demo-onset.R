@@ -6,18 +6,18 @@ library(tuneR)
 fileBeatbox <- "data/beatbox.wav";
 fileDoremi <- "data/doremi.wav";
 
-waveBeatbox <- readWave(fileBeatbow)
-waveDoremi <- readWave(fileDoremi)
+#waveBeatbox <- readWave(fileBeatbow)
+#waveDoremi <- readWave(fileDoremi)
 #play(a)
 
 # -------------------------
 # BEATS ON BEATBOX
-beats = aubioTrack(fileBeatbox, "");
+beats = aubiotrack(fileBeatbox, "");
 beatPoints <- cbind(beats, c(1:length(beats))*0)
 
 # -------------------------
 # ONSETS ON BEATBOX
-onsets <- aubioOnset(fileBeatbox, "-O mkl -t 0.47")
+onsets <- aubioonset(fileBeatbox, "-O mkl -t 0.47")
 onsetPoints <- cbind(onsets, c(1:length(onsets))*0)
 
 # show onsets with points on AMPLITUDE

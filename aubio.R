@@ -4,7 +4,7 @@
 #
 # aubioonset : onset detection
 # aubiopitch : pitch detection
-# aubiocut   : audio to midi 
+# aubiocut   : audio to midi / cut file into multiple onsets 
 # aubionotes : audio to midi
 # aubiomfcc  : mel spectrum coefficients
 # aubioquiet : extract quit and loud regions
@@ -17,6 +17,8 @@ note.A4 = 440.00
 note.A5 = 880
 note.C8 = 4186.0
 note.B8 = 7902
+
+trace = FALSE
 
 #------------------------------------------------------------------------------
 # AUBIO PITCH
@@ -38,9 +40,10 @@ note.B8 = 7902
 
 aubio.pitch.p = c('default', 'schmitt', 'fcomb', 'mcomb', 'specacf', 'yinfft')
 
-aubioPitch <- function(file, args){
+aubiopitch <- function(file, args){
   cmd = paste("aubiopitch", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   pitch = cmdRun(cmd, out(file))
   names(pitch)[1] = "time"
   names(pitch)[2] = "frequency"
@@ -67,9 +70,10 @@ aubioPitch <- function(file, args){
 
 aubio.onset.O = c('default', 'energy', 'hfc', 'complex', 'phase', 'specdiff', 'kl', 'mkl', 'specflux')
 
-aubioOnset <- function(file, args){
+aubioonset <- function(file, args){
   cmd = paste("aubioonset", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
@@ -77,22 +81,21 @@ aubioOnset <- function(file, args){
 #------------------------------------------------------------------------------
 # AUBIO MFCC : Mel Spectrum Coefficients
 
-aubioMfcc <- function(file, args){
+aubiomfcc <- function(file, args){
   cmd = paste("aubiomfcc", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
 
-
-
-
 #------------------------------------------------------------------------------
 # AUBIO CUT : WAV to midi
 
-aubioCut <- function(file, args){
+aubiocut <- function(file, args){
   cmd = paste("aubiocut", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
@@ -100,9 +103,10 @@ aubioCut <- function(file, args){
 #------------------------------------------------------------------------------
 # AUBIO NOTES : WAV to midi
 
-aubioNotes <- function(file, args){
+aubionotes <- function(file, args){
   cmd = paste("aubionotes", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
@@ -111,9 +115,10 @@ aubioNotes <- function(file, args){
 #------------------------------------------------------------------------------
 # AUBIO QUIET : Detects quiet and loud regions 
 
-aubioQuiet <- function(file, args){
+aubioquiet <- function(file, args){
   cmd = paste("aubioquiet", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
@@ -122,9 +127,10 @@ aubioQuiet <- function(file, args){
 #------------------------------------------------------------------------------
 # AUBIO TRACK : Beat detection
 
-aubioTrack <- function(file, args){
+aubiotrack <- function(file, args){
   cmd = paste("aubiotrack", args, inout(file))
-  print(cmd)
+  if(trace)
+    print(cmd)
   onsets <- cmdRun(cmd, out(file))
   return(onsets)  
 }
